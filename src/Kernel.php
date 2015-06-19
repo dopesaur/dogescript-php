@@ -11,14 +11,15 @@ class Kernel {
         
         $grammar = require dirname(__DIR__) . '/keywords.php';
         
-        $code = file_get_contents($file);
-        
-        $parser = new Parser;
-        
+        $parser   = new Parser($grammar);
         $lexer    = new Lexer($grammar);
         $compiler = new PHP($grammar);
         
-        return $compiler->compile($lexer->analyze($parser->parse($code)));
+        $code = file_get_contents($file);
+        $tokens = $parser->parse($code);
+        $tokens = $lexer->analyze($tokens);
+        
+        return $compiler->compile($tokens);
     }
     
 }
