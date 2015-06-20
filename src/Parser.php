@@ -26,11 +26,15 @@ class Parser extends Base {
             $line->append($buffer->toString(true));
             
             if ($this->isEndOfStatement($token)) {
-                $output[] = $line->tokens(true);
+                $tokens = $line->tokens(true);
+                
+                if ($tokens[0] === '') {
+                    continue;
+                }
+                
+                $output[] = $tokens;
             }
         }
-        
-        // var_dump($output);
                 
         return $output;
     }

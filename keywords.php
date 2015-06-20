@@ -35,8 +35,8 @@ return [
         'wow *',
         
         /* Basics */
-        'very $ is $',
-        '$ is $',
+        'very $ is *',
+        '$ is *',
         'so $',
         'so $ as $',
     ],

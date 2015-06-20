@@ -16,6 +16,11 @@ return [
         ['is', ['$abc', '"123"']]
     ],
     [
+        ['$abc', 'is', '"123"'],
+        '$ is *',
+        ['is', ['$abc', '"123"']]
+    ],
+    [
         ['plz', 'echo', 'with', '"cool string"'],
         'plz $ with *',
         ['plz', ['echo', ['with', ['"cool string"']]]]
