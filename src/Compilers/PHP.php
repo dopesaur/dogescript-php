@@ -8,6 +8,8 @@ class PHP extends Base implements Compiler {
     public function compile ($tokens) {
         $code = '';
         
+        // var_dump($tokens);
+        
         foreach ($tokens as $line) {
             $code .= $this->compileLine($line) . "\n";
         }
@@ -16,70 +18,13 @@ class PHP extends Base implements Compiler {
     }
     
     private function compileLine ($line) {
-        $code = '';
+        // var_dump($line);
         
-        foreach ($line as $index => $token) {
-            if (is_array($token)) {
-                $code .= $this->compileToken($token, $index, $line);
-            }
-            else {
-                $code .= "$token ";
-            }
-        }
-        
-        return $code;
+        // return $this->compileToken();
     }
     
     private function compileToken ($token, $index, $line) {
-        $code = '';
-        $lastToken = $index + 1 === count($line);
         
-        list($token, $arguments) = $token;
-        
-        if ($token === 'shh') {
-            $code .= '// ' . implode(' ', $arguments);
-        }
-        
-        if ($token === 'is') {
-            $code .= '= ';
-            
-            if (!empty($arguments)) {
-                $code .= current($arguments) . ';';
-            }
-        }
-        
-        if ($token === 'such') { 
-            $code .= 'function ' . current($arguments); 
-        }
-        
-        if ($token === 'much') { 
-            $code .= ' (' . implode(', ', $arguments) . ') {'; 
-        }
-        
-        if ($token === 'wow' && $lastToken)  { 
-            $code .= 'return ' . implode(' ', $arguments) . ';}'; 
-        }
-        else if ($token === 'wow') {
-            $code .= '}';
-        }
-        
-        if ($token === 'so') { 
-            $code .= 'use ' . current($arguments) . ($lastToken ? ';' : '');
-        }
-         
-        if ($token === 'as') {
-            $code .= ' as ' . current($arguments) . ';';
-        }
-        
-        if ($token === 'plz') {
-            $code .= current($arguments) . '(';
-        }
-        
-        if ($token === 'with') {
-            $code .= implode(', ', $arguments) . ');';
-        }
-        
-        return $code;
     }
     
 }

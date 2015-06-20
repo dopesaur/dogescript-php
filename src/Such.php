@@ -2,9 +2,9 @@
 
 use Doge\Compilers\PHP;
 
-class Kernel {
+class Such {
     
-    static function doge ($file) {
+    static function script ($file) {
         if (!file_exists($file)) {
             throw new Exception("File '$file' not exists!");
         }

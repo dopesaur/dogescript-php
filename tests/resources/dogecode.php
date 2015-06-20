@@ -11,7 +11,9 @@ return [
     [
         '$abc is 20',
         [['$abc', 'is', '20']],
-        [['$abc', ['is', ['20']]]],
+        [
+            [['is', ['$abc', '20']]]
+        ],
         '$abc = 20;'
     ],
     
@@ -25,8 +27,7 @@ return [
         ],
         [
             [
-                ['such', ['test']], 
-                ['much', ['$abc']]
+                ['such', ['test', ['much', ['$abc']]]]
             ],
             [
                 ['wow', ['$abc', '-', '10']]
@@ -48,8 +49,10 @@ return [
         'so \Doge\Parser as DogeParser',
         [['so', '\Doge\Parser', 'as', 'DogeParser']],
         [[
-            ['so', ['\Doge\Parser']],
-            ['as', ['DogeParser']]
+            ['so', [
+                '\Doge\Parser',
+                ['as', ['DogeParser']]
+            ]],
         ]],
         'use \Doge\Parser as DogeParser;'
     ],
@@ -59,8 +62,10 @@ return [
         'plz strpos with "doge" "do"',
         [['plz', 'strpos', 'with', '"doge"', '"do"']],
         [[
-            ['plz', ['strpos']],
-            ['with', ['"doge"', '"do"']],
+            ['plz', [
+                'strpos', 
+                ['with', ['"doge"', '"do"']]
+            ]],
         ]],
         'strpos("doge", "do");'
     ],
@@ -70,10 +75,13 @@ return [
         '$pos is plz strpos with "doge" "do"',
         [['$pos', 'is', 'plz', 'strpos', 'with', '"doge"', '"do"']],
         [[
-            '$pos',
-            ['is', []],
-            ['plz', ['strpos']],
-            ['with', ['"doge"', '"do"']],
+            ['is', [
+                '$pos', 
+                ['plz', [
+                    'strpos', 
+                    ['with', ['"doge"', '"do"']]
+                ]],
+            ]],
         ]],
         '$pos = strpos("doge", "do");'
     ],
@@ -85,8 +93,27 @@ return [
             ['shh', 'This', 'is', 'a', 'comment']
         ],
         [[
-            ['shh', ['This', 'is', 'a', 'comment']]
+            ['shh', ['This is a comment']]
         ]],
         '// This is a comment'
+    ],
+    
+    /* Control structures */
+    [
+        'rly "doge" totally "doge"
+    plz echo with "true"',
+        [
+            ['rly', '"doge"', 'totally', '"doge"'],
+            ['plz', 'echo', 'with', '"true"']
+        ],
+        [
+            [
+                ['rly', ['"doge"', 'totally', '"doge"']]
+            ],
+            [
+                ['plz', ['echo', ['with', ["true"]]]], 
+            ]
+        ],
+        'if ("doge" === "doge") {echo("true");}'
     ]
 ];

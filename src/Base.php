@@ -12,4 +12,13 @@ abstract class Base {
         return in_array($token, $this->grammar['keywords']);
     }
     
+    protected function isUnfinishedToken ($token) {
+        return preg_match('/("|\')/', $token)
+            && !preg_match('/^(\'|").*\1$/x', $token);
+    }
+    
+    protected function isEndOfStatement ($token) {
+        return strpos($token, "\n") === strlen($token) - 1;
+    }
+    
 }

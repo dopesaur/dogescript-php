@@ -2,6 +2,14 @@
 
 class Lexer extends Base {
     
+    private $matcher;
+    
+    public function __construct ($grammar) {
+        parent::__construct($grammar);
+            
+        $this->matcher = new Matcher($grammar);
+    }
+    
     public function analyze ($tokens) {
         $result = [];
         
@@ -13,38 +21,7 @@ class Lexer extends Base {
     }
     
     public function analyzeLine ($line) {
-        $result = [];
-        $copy   = $line;
-        
-        while (!empty($line)) {
-            $token = array_shift($line);
-            
-            if (!$this->isKeyword($token)) {
-                $result[] = $token;
-            }
-            else {
-                $arguments = $this->extractArguments($line, $copy);
-                $result[]  = [$token, $arguments];
-                
-                $line = array_slice($line, count($arguments));
-            }
-        }
-        
-        return $result;
-    }
-    
-    private function extractArguments ($line, $original) {
-        $result = [];
-        
-        foreach ($line as $token) {
-            if ($this->isKeyword($token) && !in_array('shh', $original)) {
-                break;
-            }
-            
-            $result[] = $token;
-        }
-        
-        return $result;
+        return $this->matcher->matchTokens($line);
     }
     
 }

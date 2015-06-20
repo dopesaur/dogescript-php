@@ -15,7 +15,7 @@ class LexerTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider lexerProvider
      */
-    public function testLexer ($_, $input, $output, $__) {
+    public function testLexer ($_, $input, $output) {
         $lexer  = $this->createLexer();
         $result = $lexer->analyze($input);
         

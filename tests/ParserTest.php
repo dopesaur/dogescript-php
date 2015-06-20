@@ -15,11 +15,11 @@ class ParserTest extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider parserProvider
      */
-    public function testParser ($input, $output, $_, $__) {
+    public function testParser ($input, $output) {
         $parser = $this->createParser();
         $result = $parser->parse($input);
         
-        $this->assertEquals($output, $result);
+        $this->assertEquals($output, $result);       
     }
     
 }
