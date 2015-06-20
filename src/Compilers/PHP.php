@@ -9,79 +9,164 @@ class PHP extends Base implements Compiler {
         $code = '';
         
         foreach ($tokens as $line) {
-            if (empty($line)) {
-                continue;
-            }
-            
-            $code .= $this->compileLine($line) . "\n";
+            $code .= (!empty($line) ? $this->compileLine($line) : '') . "\n";
         }
         
         return $code;
     }
     
     private function compileLine ($line) {
-        list($token, $arguments) = $line;
-        
-        return $this->compileToken($token, $arguments);
-    }
-    
-    private function compileToken ($token, $arguments) {
-        if ($token === 'shh') {
-            return '// ' . implode(' ', $arguments);
+        foreach ($line as $i => $token) {
+            if (is_array($token)) {
+                $line[$i] = trim($this->compileLine($token), ';');
+            }
         }
         
-        if ($token === 'such') {
-            return 'function ' 
-                . current($arguments) 
-                . $this->compileArguments($token, $arguments[1]);
+        $last   = current(array_slice($line, -1, 1)) ?: '';
+        $first  = current(array_slice($line,  0, 1)) ?: '';
+        $second = current(array_slice($line,  1, 1)) ?: '';
+        
+        $length = count($line);
+        
+        $code = '';
+        
+        if ($first === 'shh') {
+            $code .= "// $second";
         }
         
-        if ($token === 'wow') {
-            $code = '';
+        if ($first === 'quiet') {
+            $code .= '/*' . ($second === 'dogeblock' ? '*' : '');
+        }
+        
+        if ($first === 'loud') {
+            $code .= '*/';
+        }
+        
+        if ($first === 'very') {
+            $code .= "$second = $last;";
+        }
+        
+        if ($second === 'is') {
+            $code .= "$first = $last;";
+        }
+        
+        if ($first === 'so') {
+            $code .= "use $second";
             
-            if (!empty($arguments)) {
-                $code = 'return ' . implode(' ', $arguments) . ';';
+            if ($length > 2) {
+                $code .= " as $last";
             }
             
-            return $code . "\n}";
+            $code .= ';';
         }
         
-        if ($token === 'plz') {
-            return current($arguments) 
-                . '(' 
-                . $this->compileArguments($token, $arguments[1]) 
-                . ');';
+        if ($first === 'plz') {
+            $arguments = '';
+            
+            if ($length > 2) {
+                $arguments = implode(', ', array_slice($line, 3));
+            }
+            
+            $code .= "$second($arguments);";
         }
         
-        if ($token === 'quiet') {
-            return '/* ' . '';
+        if ($first === 'but') {
+            $code .= 'else ';
         }
         
-        if ($arguments[0] === 'is') {
-            return $token . ' ' . $this->compileArguments('', $arguments);
+        if ($first === 'rly' || $second === 'rly') {
+            $index = $first === 'rly' ? 1 : 2;
+            
+            $code .= 'if (' 
+                . $this->compileBoolean(implode(' ', array_slice($line, $index, -1))) 
+                . ') ';
         }
         
-        return '';
+        if ($first === 'notrly') {
+            $code .= 'if (!(' 
+                . $this->compileBoolean(implode(' ', array_slice($line, 1, -1))) 
+                . ')) ';
+        }
+        
+        if ($first === 'many') {
+            $code .= 'while ('
+                . $this->compileBoolean(implode(' ', array_slice($line, 1, -1)))
+                . ') ';
+        }
+        
+        if ($second === 'more') {
+            $third = $line[2];
+            $code .= "$first += $third;";
+        }
+        
+        if ($second === 'less') {
+            $third = $line[2];
+            $code .= "$first -= $third;";
+        }
+        
+        if ($second === 'lots') {
+            $third = $line[2];
+            $code .= "$first *= $third;";
+        }
+        
+        if ($second === 'few') {
+            $third = $line[2];
+            $code .= "$first /= $third;";
+        }
+        
+        if ($first === 'such') {
+            $arguments = '';
+            
+            if ($length > 2) {
+                $arguments = implode(', ', array_slice($line, 3, -1));
+            }
+            
+            $code .= "function $second ($arguments) ";
+        }
+        
+        if ($last === 'so') {
+            $code .= '{';
+        }
+        
+        if ($first === 'wow') {
+            if ($length > 1) {
+                $code .= 'return ' . implode(' ', array_slice($line, 1)) . ";\n";
+            }
+            
+            $code .= "}";
+        }
+        
+        if ($code) {
+            return $code;
+        }
+        
+        return $length === 1 ? $first : '';
     }
     
-    private function compileArguments ($token, $arguments) {
-        list($subtoken, $subargs) = $arguments;
+    private function compileBoolean ($line) {
+        static $tokens = null;
         
-        if ($token === 'such' && $subtoken === 'much') {
-            return ' ('
-                . implode(', ', $subargs[0])
-                . ') {';
-        }
+        $tokens or $tokens = [
+            ' totally ' => ' === ',
+            ' noway '   => ' !== ',
+            'not '     => '!',
+            ' is '      => ' == ',
+            ' isnt '    => ' != ',
+            ' as '      => ' = ',
+            ' or '      => ' || ',
+            ' and '     => ' && ',
+            ' next'    => ' ;',
+            ' bigger '  => ' > ',
+            ' smaller ' => ' < ',
+            ' biggerish '  => ' >= ',
+            ' smallerish ' => ' <= '
+        ];
         
-        if ($subtoken === 'is') {
-            return '= ' . $this->compileToken($subargs[0], $subargs[1]);
-        }
-        
-        if ($token === 'plz' && $subtoken === 'with') {
-            return implode(', ', $subargs);
-        }
-        
-        return '';
+        return str_replace(
+            array_keys($tokens),
+            array_values($tokens),
+            $line
+        );
     }
     
 }

@@ -2,41 +2,20 @@
 
 class Parser extends Base {
     
+    private $comment = false;
+    
     public function parse ($code) {
-        $buffer = new TokenBuffer($this->grammar);
-        $line   = new TokenBuffer($this->grammar);
-        
-        $output = [];
+        $space = ' ';
         
         $code = trim($code);
-        $code = "$code\n";
-        $code = str_replace("\n", "\n ", $code);
+        $code = str_replace("\n", " \n ", $code);
         
-        foreach (explode(' ', $code) as $token) {
-            if (empty($token)) {
-                continue;
-            }
-            
-            $buffer->append(trim($token));
-            
-            if ($buffer->isUnfinished()) {
-                continue;
-            }
-            
-            $line->append($buffer->toString(true));
-            
-            if ($this->isEndOfStatement($token)) {
-                $tokens = $line->tokens(true);
-                
-                if ($tokens[0] === '') {
-                    continue;
-                }
-                
-                $output[] = $tokens;
-            }
-        }
-                
-        return $output;
+        $tokens = explode($space, $code);
+        $tokens = array_filter($tokens, function ($token) {
+            return !empty($token);
+        });
+        
+        return array_values($tokens);
     }
     
 }

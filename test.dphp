@@ -1,9 +1,11 @@
-shh This is dogescript-php
+such router with $route so
+    $frags is (plz explode with '/' $route)
+    
+    $controller is array_shift($frags)
+    $action is array_shift($frags)
+    $fragments is $frags
+    
+    plz var_dump with (plz compact with 'controller' 'action' 'fragments')
+wow
 
-such test much $a $b $c
-    wow $a + $b + $c
-
-$sum is plz test with 10 20 30
-
-plz print with $sum
-
+plz router with 'abc/def/ghij'

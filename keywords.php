@@ -4,6 +4,7 @@
  * Dogescript language file
  */
 
+
 return [
     /**
      * List of statements
@@ -71,6 +72,7 @@ return [
         'dose',
         'maybe',
         'so',
+        'next',
         
         /* Comparison and logic */
         // 'is',
@@ -86,6 +88,7 @@ return [
         'smallerish',
         
         /* Assignment */
+        'very',
         'is',
         'more',
         'less',

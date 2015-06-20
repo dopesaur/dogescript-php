@@ -30,6 +30,10 @@ class TokenBuffer extends Base {
         return $this->isUnfinishedToken($this->toString());
     }
     
+    public function isFinished () {
+        return $this->isFinishedToken($this->toString());
+    }
+    
     public function toString ($clear = false) {
         $tokens = $this->tokens;
         

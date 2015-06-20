@@ -17,10 +17,9 @@ class CompilerTest extends PHPUnit_Framework_TestCase {
      */
     public function testCompiler ($_, $_, $input, $output) {
         $compiler = $this->createCompiler();
-        $result   = str_replace("\n", '', $compiler->compile($input));
+        $result   = trim($compiler->compile($input));
         
-        // $this->assertTrue(true);
-        // $this->assertEquals($output, $result);
+        $this->assertEquals($output, $result);
     }
     
 }

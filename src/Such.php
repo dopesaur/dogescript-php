@@ -19,7 +19,7 @@ class Such {
         $tokens = $parser->parse($code);
         $tokens = $lexer->analyze($tokens);
         
-        var_dump($tokens);
+        // var_dump($tokens);
         
         return $compiler->compile($tokens);
     }

@@ -50,4 +50,17 @@ class TokenBufferTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($buffer->isUnfinished());
     }
     
+    public function testFinishedArrayTokens () {
+        $buffer = $this->createBuffer();
+        
+        $buffer->append('[1,');
+        $buffer->append('2,');
+        
+        $this->assertFalse($buffer->isFinished());
+        
+        $buffer->append('3]');
+        
+        $this->assertTrue($buffer->isFinished());
+    }
+    
 }

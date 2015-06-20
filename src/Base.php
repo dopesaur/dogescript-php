@@ -9,12 +9,21 @@ abstract class Base {
     }
     
     protected function isKeyword ($token) {
+        $token = trim($token, '(){}[]');
+        
         return in_array($token, $this->grammar['keywords']);
     }
     
     protected function isUnfinishedToken ($token) {
         return preg_match('/("|\')/', $token)
-            && !preg_match('/^(\'|").*\1$/x', $token);
+            && !preg_match('/^(\'|").*\1$/', $token);
+    }
+    
+    protected function isFinishedToken ($token) {
+        return !preg_match('/("|\'|\{|\[)/', $token)
+            || preg_match('/^(\'|").*\1$/', $token)
+            || preg_match('/^\{.*\}$/', $token)
+            || preg_match('/^\[.*\]$/', $token);
     }
     
     protected function isEndOfStatement ($token) {
