@@ -52,7 +52,7 @@ return [
         'shh',
         'quiet',
         'loud',
-        'docblocke',
+        'dogeblock',
         
         /* Functions */
         'such',

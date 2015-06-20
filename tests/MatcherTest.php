@@ -29,8 +29,6 @@ class MatcherTest extends PHPUnit_Framework_TestCase {
         $matcher = $this->createMatcher();
         $result  = $matcher->matchTokens($tokens);
         
-        var_dump($output, $result);
-        
         $this->assertEquals($output, $result);
     }
     
