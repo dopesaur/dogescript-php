@@ -17,7 +17,7 @@ return [
         /* Comments */
         'shh *',
         'quiet *-> loud',
-        'docblocke *-> loud',
+        'quiet dogeblock *-> loud',
         
         /* Control flow structures */
         'rly *',
