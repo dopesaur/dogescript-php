@@ -339,5 +339,20 @@ print("cool doge");'
         '// Compound expressions
 
 $doge = test(10, 20, 30);'
-    ]    
+    ],
+    [
+        'rly $i totally 1 or $i totally 0 so
+            wow 1',
+        [
+            'rly', '$i', 'totally', '1', 'or', '$i', 'totally', '0', 'so', "\n",
+            'wow', '1'
+        ],
+        [
+            ['rly', '$i', 'totally', '1', 'or', '$i', 'totally', '0', 'so'],
+            ['wow', '1']
+        ],
+        'if ($i === 1 || $i === 0) {
+return 1;
+}'
+    ]
 ];

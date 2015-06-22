@@ -12,7 +12,7 @@ class Parser extends Base {
         
         $tokens = explode($space, $code);
         $tokens = array_filter($tokens, function ($token) {
-            return !empty($token);
+            return $token !== '';
         });
         
         return array_values($tokens);
