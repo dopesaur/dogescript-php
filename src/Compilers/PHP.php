@@ -50,7 +50,7 @@ class PHP extends Base implements Compiler {
             $code .= "$first = $last;";
         }
         
-        if ($first === 'so') {
+        if ($first === 'so' && $length > 1) {
             $code .= "use $second";
             
             if ($length > 2) {
@@ -97,6 +97,19 @@ class PHP extends Base implements Compiler {
         if ($second === 'more') {
             $third = $line[2];
             $code .= "$first += $third;";
+        }
+        
+        if ($first === '4lulz') {
+            $with = array_search('with', $line);
+            $arguments = array_slice($line, 1, $with - 1);
+            
+            $arguments = count($arguments) > 1 
+                ? "{$arguments[0]} => {$arguments[1]}"
+                : "{$arguments[0]}";
+            
+            $with = $line[$with + 1];
+            
+            $code .= "foreach ($with as $arguments) ";
         }
         
         if ($second === 'less') {

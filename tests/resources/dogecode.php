@@ -354,5 +354,41 @@ $doge = test(10, 20, 30);'
         'if ($i === 1 || $i === 0) {
 return 1;
 }'
+    ],
+    [
+        '4lulz $doge with $dogs so
+            plz echo with $doge
+        wow',
+        [
+            '4lulz', '$doge', 'with', '$dogs', 'so', "\n",
+            'plz', 'echo', 'with', '$doge', "\n",
+            'wow'
+        ],
+        [
+            ['4lulz', '$doge', 'with', '$dogs', 'so'],
+            ['plz', 'echo', 'with', '$doge'],
+            ['wow']
+        ],
+        'foreach ($dogs as $doge) {
+echo($doge);
+}'
+    ],
+    [
+        '4lulz $doge $value with $dogs so
+            plz echo with $doge
+        wow',
+        [
+            '4lulz', '$doge', '$value', 'with', '$dogs', 'so', "\n",
+            'plz', 'echo', 'with', '$doge', "\n",
+            'wow'
+        ],
+        [
+            ['4lulz', '$doge', '$value', 'with', '$dogs', 'so'],
+            ['plz', 'echo', 'with', '$doge'],
+            ['wow']
+        ],
+        'foreach ($dogs as $doge => $value) {
+echo($doge);
+}'
     ]
 ];
