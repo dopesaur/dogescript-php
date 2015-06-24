@@ -2,7 +2,7 @@
 
 ![doge](./doge.jpg)
 
-> So dogescript, such a port, much php
+> So dogescript, such port, much php
 
 dogescript-php is a slightly modified PHP port of [dogescript](https://github.com/dogescript/dogescript), so now you can write dogescript for PHP.
 

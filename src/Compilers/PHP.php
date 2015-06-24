@@ -115,6 +115,12 @@ class PHP extends Base implements Compiler {
                 . ') ';
         }
         
+        if ($first === 'much') {
+            $code .= 'for ('
+                . $this->compileBoolean(implode(' ', array_slice($line, 1, -1)))
+                . ') ';
+        }
+        
         if ($second === 'more') {
             $third = $line[2];
             $code .= "$first += $third;";
@@ -187,19 +193,24 @@ class PHP extends Base implements Compiler {
         static $tokens = null;
         
         $tokens or $tokens = [
-            ' totally ' => ' === ',
-            ' noway '   => ' !== ',
-            'not '     => '!',
-            ' is '      => ' == ',
-            ' isnt '    => ' != ',
-            ' as '      => ' = ',
-            ' or '      => ' || ',
-            ' and '     => ' && ',
-            ' next'    => ' ;',
-            ' bigger '  => ' > ',
-            ' smaller ' => ' < ',
+            'very '        => '',
+            ' totally '    => ' === ',
+            ' noway '      => ' !== ',
+            'not '         => '!',
+            ' is '         => ' == ',
+            ' isnt '       => ' != ',
+            ' as '         => ' = ',
+            ' or '         => ' || ',
+            ' and '        => ' && ',
+            ' next'        => ';',
+            ' bigger '     => ' > ',
+            ' smaller '    => ' < ',
             ' biggerish '  => ' >= ',
-            ' smallerish ' => ' <= '
+            ' smallerish ' => ' <= ',
+            ' more '       => ' += ',
+            ' less '       => ' -= ',
+            ' lots '       => ' *= ',
+            ' few '        => ' /= '
         ];
         
         return str_replace(

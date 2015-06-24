@@ -18,6 +18,10 @@ class TokenBuffer extends Base {
         return $tokens;
     }
     
+    public function setTokens ($tokens) {
+        $this->tokens = $tokens;
+    }
+    
     public function clear () {
         $this->tokens = [];
     }

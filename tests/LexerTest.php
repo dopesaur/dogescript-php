@@ -19,6 +19,8 @@ class LexerTest extends PHPUnit_Framework_TestCase {
         $lexer  = $this->createLexer();
         $result = $lexer->analyze($input);
         
+        // var_dump($result);
+        
         $this->assertEquals($output, $result);
     }
     
