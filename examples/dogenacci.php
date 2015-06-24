@@ -9,12 +9,17 @@ See dogenacci.php for compiled result
 */
 
 function dogenacci ($n) {
-if ($n === 0 && $n === 1) {
+if ($n === 0 || $n === 1) {
 return 1;
 }
 else {
-return dogenacci($n-1) + dogenacci($n-2);
+$first = $n - 1;
+$second = $n - 2;
+
+return dogenacci($first) + dogenacci($second);
 }
 }
 
-echo(dogenacci(5));
+// so doge, such factorial, much math
+
+echo(dogenacci(6));

@@ -1,8 +1,7 @@
+#!/usr/bin/env php
 <?php require 'vendor/autoload.php';
 
 $file = $_SERVER['argv'][1];
-
-echo $file;
 
 if (file_exists($file)) {
     $code = Doge\Such::script($file);

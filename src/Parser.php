@@ -1,9 +1,20 @@
 <?php namespace Doge;
 
-class Parser extends Base {
+/**
+ * dogescript source code parser.
+ * 
+ * All what it's do is breaking everything into tokens.
+ * 
+ * @package dogescript-php
+ */
+class Parser {
     
-    private $comment = false;
-    
+    /**
+     * Parses given code into flat list (indexed array) of tokens
+     * 
+     * @param string $code
+     * @return array
+     */
     public function parse ($code) {
         $space = ' ';
         
@@ -12,7 +23,8 @@ class Parser extends Base {
         
         $tokens = explode($space, $code);
         $tokens = array_filter($tokens, function ($token) {
-            return $token !== '';
+            return $token !== '' 
+                && $token !== 'the';
         });
         
         return array_values($tokens);

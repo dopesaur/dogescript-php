@@ -3,8 +3,19 @@
 use Doge\Base;
 use Doge\Compiler;
 
+/**
+ * Compiler which compiles array of dogescript statements
+ * into working PHP code.
+ * 
+ * Right now, it uses ugly if/else logic, but it's just for now
+ * 
+ * @package dogescript-php
+ */
 class PHP extends Base implements Compiler {
     
+    /**
+     * {@inheritdoc}
+     */
     public function compile ($tokens) {
         $code = '';
         
@@ -15,6 +26,12 @@ class PHP extends Base implements Compiler {
         return $code;
     }
     
+    /**
+     * Compiles statement into PHP code using ugly if/else logic
+     * 
+     * @param array $line
+     * @return string
+     */
     private function compileLine ($line) {
         foreach ($line as $i => $token) {
             if (is_array($token)) {
@@ -43,10 +60,14 @@ class PHP extends Base implements Compiler {
         }
         
         if ($first === 'very') {
+            $last = implode(' ', array_slice($line, 3));
+            
             $code .= "$second = $last;";
         }
         
         if ($second === 'is') {
+            $last = implode(' ', array_slice($line, 2));
+            
             $code .= "$first = $last;";
         }
         
@@ -153,9 +174,15 @@ class PHP extends Base implements Compiler {
             return $code;
         }
         
-        return $length === 1 ? $first : '';
+        return $length === 1 ? implode(' ', $line) : '';
     }
     
+    /**
+     * Compile expression
+     * 
+     * @param string $line
+     * @return string
+     */
     private function compileBoolean ($line) {
         static $tokens = null;
         

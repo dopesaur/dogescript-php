@@ -6,9 +6,8 @@ class Lexer extends Base {
         $statements = $this->separateStatements($tokens);
         $statements = $this->processComments($statements);
         $statements = $this->joinNonKeywords($statements);
-        $statements = $this->separateCompoundExpressions($statements);
         
-        return $statements;
+        return $this->separateCompoundExpressions($statements);
     }
     
     private function separateStatements ($tokens) {

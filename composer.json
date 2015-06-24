@@ -1,4 +1,25 @@
 {
+    "name": "dogescript-php",
+    "description": "so dogescript, such port, much php",
+    "keywords": [
+        "preprocessor",
+        "wow",
+        "so",
+        "doge"
+    ],
+    "type": "library",
+    "license": "dogeMIT",
+    "authors": [
+        {
+            "name": "Peter",
+            "email": "dopesaur5@gmail.com"
+        }
+    ],
+    
+    "bin": [
+        "bin/dogescript"
+    ],
+    
     "require-dev": {
         "phpunit/phpunit": "4.*"
     },

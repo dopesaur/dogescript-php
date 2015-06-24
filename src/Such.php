@@ -11,15 +11,13 @@ class Such {
         
         $grammar = require dirname(__DIR__) . '/keywords.php';
         
-        $parser   = new Parser($grammar);
+        $parser   = new Parser;
         $lexer    = new Lexer($grammar);
         $compiler = new PHP($grammar);
         
         $code = file_get_contents($file);
         $tokens = $parser->parse($code);
         $tokens = $lexer->analyze($tokens);
-        
-        // var_dump($tokens);
         
         return $compiler->compile($tokens);
     }

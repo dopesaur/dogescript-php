@@ -69,6 +69,7 @@ return [
         'much',
         
         /* Basics */
+        'the',
         'dose',
         'maybe',
         'so',

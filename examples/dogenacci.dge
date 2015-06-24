@@ -1,4 +1,3 @@
-
 quiet 
     Example #1: Fibonacci function,
     See dogenacci.php for compiled result
@@ -8,10 +7,15 @@ quiet
 loud
 
 such dogenacci much $n so
-    rly $n totally 0 and $n totally 1 so
+    rly $n totally 0 or $n totally 1 so
         wow 1
     but so
-        wow (plz dogenacci with $n-1) + (plz dogenacci with $n-2)
+        $first is $n - 1
+        $second is $n - 2
+        
+        wow (plz dogenacci with $first) + (plz dogenacci with $second)
 wow
 
-plz echo with (plz dogenacci with 5)
+shh so doge, such factorial, much math
+
+plz echo with (plz dogenacci with 6)
