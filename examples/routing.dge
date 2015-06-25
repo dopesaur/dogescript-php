@@ -1,0 +1,21 @@
+quiet
+    Example #3: Simple dogerouter
+    
+    All it's doing is transforming route into 
+    3 element array
+loud 
+
+quiet dogeblock
+    @so string $route
+    @wow so array
+loud
+
+such router much $route so
+    $fragments is (plz explode with '/' $route)
+    
+    $controller is (plz array_shift with $fragments)
+    $action is (plz array_shift with $fragments)
+    
+    wow [$controller, $action, $fragments]
+
+plz var_dump with (plz router with 'abc/def/ghi')
