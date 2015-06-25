@@ -1,5 +1,7 @@
 <?php namespace Doge;
 
+use Doge\Buffers\ExpressionBuffer;
+
 /**
  * Lexer class
  * 
@@ -18,9 +20,9 @@ class Lexer extends Base {
     public function analyze ($tokens) {
         $statements = $this->separateStatements($tokens);
         $statements = $this->processComments($statements);
-        $statements = $this->joinNonKeywords($statements);
+        $statements = $this->separateCompoundExpressions($statements);
         
-        return $this->separateCompoundExpressions($statements);
+        return $this->joinNonKeywords($statements);
     }
     
     /**
@@ -135,7 +137,10 @@ class Lexer extends Base {
         $new_line = [];
         
         foreach ($line as $token) {
-            if ($this->isKeyword($token)) {
+            if (is_array($token)) {
+                $new_line[] = $this->joinNonKeywordLine($token, $buffer);
+            }
+            else if ($this->isKeyword($token)) {
                 $new_line[] = $token;
             }
             else {
@@ -169,41 +174,54 @@ class Lexer extends Base {
             $statements[$i] = $this->processSeparateExpression($line);
         }
         
+        // var_dump($statements);
+        
         return $statements;
     }
     
     private function processSeparateExpression ($line) {
-        $buffer = [];
-        $new_line = [];
-        $open = false;
+        $buffer = new ExpressionBuffer;
+        $result = [];
         
         foreach ($line as $token) {
-            if (strpos($token, '(') === 0) {
-                $open = true;
-            }
-            else if (
-                $open &&
-                strpos($token, ')') === strlen($token) - 1 && 
-                !empty($buffer)
-            ) {
-                $buffer[] = trim($token, '()');
-                $new_line[] = $buffer;
-                $buffer = [];
-                
-                $open = false;
-                
-                continue;
-            }
+            $buffer->append($token);
             
-            if ($open) {
-                $buffer[] = trim($token, '()');
-            }
-            else {
-                $new_line[] = $token;
+            if ($buffer->isComplete()) {
+                $data = $buffer->data();
+                $data = $buffer->count() === 1 ? $data[0] : $data;
+                
+                if (is_array($data)) {
+                    $data = $this->removeParanthesisFromLine($data);
+                    $data = $this->processSeparateExpression($data);
+                }
+                
+                $result[] = $data;
+                
+                $buffer->clear();
             }
         }
         
-        return $new_line;
+        return $result;
+    }
+    
+    private function removeParanthesisFromLine ($line) {
+        $l = count($line);
+        
+        foreach ($line as $i => $token) {
+            if (is_array($token)) {
+                $line[$i] = $this->removeParanthesisFromLine($token);
+            }
+            else {
+                if ($i === 0) {
+                    $line[$i] = ltrim($token, '(');
+                }
+                else if (strpos($token, '(') === false && $i === $l - 1) {
+                    $line[$i] = rtrim($token, ')');
+                }
+            }
+        }
+        
+        return $line;
     }
     
 }

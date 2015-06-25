@@ -344,27 +344,31 @@ print("cool doge");'
 
 $doge = test(10, 20, 30);'
     ],
-    // [
-//         'shh Compound nested expressions
-//         
-//         very $doge is (plz test with 10 (plz strpos with "doge" "do") 30)',
-//         [
-//             'shh', 'Compound', 'nested', 'expressions', "\n", 
-//             "\n",
-//             'very', '$doge', 'is', '(plz', 'test', 'with', '10', '(plz', 'strpos', 'with', '"doge"', '"do")', '30)'
-//         ],
-//         [
-//             ['shh', 'Compound nested expressions'], 
-//             [],
-//             ['very', '$doge', 'is', 
-//                 ['plz', 'test', 'with', '10', 
-//                     ['plz', 'strpos', 'with', '"doge"', '"do"'], '30']
-//             ]
-//         ],
-//         '// Compound nested expressions
-// 
-// $doge = test(10, strpos("doge", "do"), 30);'
-//     ],
+    [
+        'shh Compound nested expressions
+        
+        very $doge is (plz test with 10 (plz strpos with "doge" "do") 30)',
+        [
+            'shh', 'Compound', 'nested', 'expressions', "\n", 
+            "\n",
+            'very', '$doge', 'is', '(plz', 'test', 'with', '10', '(plz', 'strpos', 'with', '"doge"', '"do")', '30)'
+        ],
+        [
+            ['shh', 'Compound nested expressions'], 
+            [],
+            [
+                'very', '$doge', 'is', 
+                [
+                    'plz', 'test', 'with', '10', 
+                    ['plz', 'strpos', 'with', '"doge"', '"do"'], 
+                    '30'
+                ]
+            ]
+        ],
+        '// Compound nested expressions
+
+$doge = test(10, strpos("doge", "do"), 30);'
+    ],
     [
         'rly $i totally 1 or $i totally 0 so
             wow 1',

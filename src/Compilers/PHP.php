@@ -44,9 +44,9 @@ class PHP extends Base implements Compiler {
         $second = current(array_slice($line,  1, 1)) ?: '';
         
         $length = count($line);
+        $code   = '';
         
-        $code = '';
-        
+        /* Comments */
         if ($first === 'shh') {
             $code .= "// $second";
         }
@@ -59,6 +59,7 @@ class PHP extends Base implements Compiler {
             $code .= '*/';
         }
         
+        /* Variable assignment */
         if ($first === 'very') {
             $last = implode(' ', array_slice($line, 3));
             
@@ -71,6 +72,7 @@ class PHP extends Base implements Compiler {
             $code .= "$first = $last;";
         }
         
+        /* Use statement */
         if ($first === 'so' && $length > 1) {
             $code .= "use $second";
             
@@ -81,23 +83,13 @@ class PHP extends Base implements Compiler {
             $code .= ';';
         }
         
-        if ($first === 'plz') {
-            $arguments = '';
-            
-            if ($length > 2) {
-                $arguments = implode(', ', array_slice($line, 3));
-            }
-            
-            $code .= "$second($arguments);";
-        }
-        
+        /* Comparison structures */
         if ($first === 'but') {
             $code .= 'else ';
         }
         
         if ($first === 'rly' || $second === 'rly') {
             $index = $first === 'rly' ? 1 : 2;
-            
             $code .= 'if (' 
                 . $this->compileBoolean(implode(' ', array_slice($line, $index, -1))) 
                 . ') ';
@@ -109,6 +101,7 @@ class PHP extends Base implements Compiler {
                 . ')) ';
         }
         
+        /* Loops */
         if ($first === 'many') {
             $code .= 'while ('
                 . $this->compileBoolean(implode(' ', array_slice($line, 1, -1)))
@@ -119,11 +112,6 @@ class PHP extends Base implements Compiler {
             $code .= 'for ('
                 . $this->compileBoolean(implode(' ', array_slice($line, 1, -1)))
                 . ') ';
-        }
-        
-        if ($second === 'more') {
-            $third = $line[2];
-            $code .= "$first += $third;";
         }
         
         if ($first === '4lulz') {
@@ -137,6 +125,12 @@ class PHP extends Base implements Compiler {
             $with = $line[$with + 1];
             
             $code .= "foreach ($with as $arguments) ";
+        }
+        
+        /* Operators */
+        if ($second === 'more') {
+            $third = $line[2];
+            $code .= "$first += $third;";
         }
         
         if ($second === 'less') {
@@ -154,6 +148,17 @@ class PHP extends Base implements Compiler {
             $code .= "$first /= $third;";
         }
         
+        /* Functions */
+        if ($first === 'plz') {
+            $arguments = '';
+            
+            if ($length > 2) {
+                $arguments = implode(', ', array_slice($line, 3));
+            }
+            
+            $code .= "$second($arguments);";
+        }
+        
         if ($first === 'such') {
             $arguments = '';
             
@@ -164,6 +169,7 @@ class PHP extends Base implements Compiler {
             $code .= "function $second ($arguments) ";
         }
         
+        /* Block statements */
         if ($last === 'so') {
             $code .= '{';
         }

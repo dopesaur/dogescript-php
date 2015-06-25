@@ -76,7 +76,6 @@ return [
         'next',
         
         /* Comparison and logic */
-        // 'is',
         'totally',
         'not',
         'noway',
@@ -95,5 +94,13 @@ return [
         'less',
         'lots',
         'few',
+        
+        /* OOP
+        'promise', // interface
+        'treat',   // trait
+        'doge',    // class
+        'bone',    // abstract
+        'nevr',    // private function
+        */
     ]
 ];

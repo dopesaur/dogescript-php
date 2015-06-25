@@ -17,7 +17,7 @@
     ],
     
     "bin": [
-        "bin/dogescript"
+        "bin/dogescript-php"
     ],
     
     "require-dev": {
