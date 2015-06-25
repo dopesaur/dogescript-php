@@ -11,13 +11,14 @@ use Doge\Compiler;
  * 
  * @package dogescript-php
  */
-class PHP extends Base implements Compiler {
+class PHP implements Compiler {
+    use Base;
     
     /**
      * {@inheritdoc}
      */
     public function compile ($tokens) {
-        $code = '';
+        $code = "<?php\n\n";
         
         foreach ($tokens as $line) {
             $code .= (!empty($line) ? $this->compileLine($line) : '') . "\n";

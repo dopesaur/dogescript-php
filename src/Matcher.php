@@ -4,12 +4,15 @@ use Doge\Captures\All;
 use Doge\Captures\TillToken;
 use Doge\Captures\One;
 
-class Matcher extends Base {
+class Matcher {
+    use Base {
+        __construct as constructor;
+    }
     
     private $captures;
     
     public function __construct ($grammar) {
-        parent::__construct($grammar);
+        $this->constructor($grammar);
         
         $this->captures = [
             '*'   => new All,

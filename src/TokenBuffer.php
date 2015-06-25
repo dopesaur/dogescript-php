@@ -1,6 +1,7 @@
 <?php namespace Doge;
 
-class TokenBuffer extends Base {
+class TokenBuffer {
+    use Base;
     
     private $tokens = [];
     

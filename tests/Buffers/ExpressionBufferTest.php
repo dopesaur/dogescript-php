@@ -13,6 +13,13 @@ class ExpressionBufferTest extends PHPUnit_Framework_TestCase {
                 ['plz', 'strpos', 'with', [
                     'plz', 'substr', 'with', '$doge', '2'
                 ]]
+            ],
+            [
+                [
+                    'plz', 'strpos', 'with', 
+                    '(plz', 'strpos', 'with',
+                    '(plz', 'strpos', 'with', '10))'
+                ]
             ]
         ];
     }
@@ -25,6 +32,13 @@ class ExpressionBufferTest extends PHPUnit_Framework_TestCase {
                 ['plz', 'strpos', 'with', [
                     'plz', 'substr', 'with', '(plz', 'strpos', 'with', '2'
                 ]]
+            ],
+            [
+                [
+                    'plz', 'strpos', 'with', 
+                    '(plz', 'strpos', 'with',
+                    '(plz', 'strpos', 'with', '10)'
+                ]
             ]
         ];
     }

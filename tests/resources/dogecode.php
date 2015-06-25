@@ -1,12 +1,27 @@
 <?php
 
 /**
- * 0 -> Dogescript code
- * 1 -> Parser tokens
- * 2 -> Lexer processed tokens
- * 3 -> Output PHP code
+ * This is data provider for following tests:
+ * 
+ * - LexerTest
+ * - ParserTest
+ * - Compiler test
+ * 
+ * Each of this indices correspondes with following list:
+ * 
+ * - 0 => Dogescript code
+ * - 1 => Parser tokens
+ * - 2 => Lexer processed tokens
+ * - 3 => Output PHP code
  */
 return [
+    /**
+     * Comments testing
+     * 
+     * - shh comment
+     * - quiet loud comment
+     * - dogeblock comment
+     */
     [
         'shh This is dogescript comment',
         ['shh', 'This', 'is', 'dogescript', 'comment'],
@@ -60,6 +75,18 @@ such callable
 wow so string
 */'
     ],
+    
+    /**
+     * Control flow structures tests:
+     * 
+     * - if (rly)
+     * - unless (notrly)
+     * - else if (but rly)
+     * - else (but)
+     * - much (while)
+     * - many (for)
+     * - 4lulz (foreach)
+     */
     [
         'rly $sum totally 42 so
             wow true',
@@ -73,6 +100,21 @@ wow so string
         ],
         'if ($sum === 42) {
 return true;
+}'
+    ],
+    [
+        'rly $i totally 1 or $i totally 0 so
+            wow 1',
+        [
+            'rly', '$i', 'totally', '1', 'or', '$i', 'totally', '0', 'so', "\n",
+            'wow', '1'
+        ],
+        [
+            ['rly', '$i', 'totally', '1', 'or', '$i', 'totally', '0', 'so'],
+            ['wow', '1']
+        ],
+        'if ($i === 1 || $i === 0) {
+return 1;
 }'
     ],
     [
@@ -194,6 +236,50 @@ if ($i > 2) {
 }'
     ],
     [
+        '4lulz $doge with $dogs so
+            plz echo with $doge
+        wow',
+        [
+            '4lulz', '$doge', 'with', '$dogs', 'so', "\n",
+            'plz', 'echo', 'with', '$doge', "\n",
+            'wow'
+        ],
+        [
+            ['4lulz', '$doge', 'with', '$dogs', 'so'],
+            ['plz', 'echo', 'with', '$doge'],
+            ['wow']
+        ],
+        'foreach ($dogs as $doge) {
+echo($doge);
+}'
+    ],
+    [
+        '4lulz $doge $value with $dogs so
+            plz echo with $doge
+        wow',
+        [
+            '4lulz', '$doge', '$value', 'with', '$dogs', 'so', "\n",
+            'plz', 'echo', 'with', '$doge', "\n",
+            'wow'
+        ],
+        [
+            ['4lulz', '$doge', '$value', 'with', '$dogs', 'so'],
+            ['plz', 'echo', 'with', '$doge'],
+            ['wow']
+        ],
+        'foreach ($dogs as $doge => $value) {
+echo($doge);
+}'
+    ],
+    
+    /**
+     * Functions:
+     * 
+     * - function declaration (such, such much)
+     * - function call (plz, plz with)
+     * - nested function call (nested expressions)
+     */
+    [
         'such test so
             shh so true
             wow true',
@@ -253,30 +339,6 @@ return $a + $b;
         ['plz', 'test', 'with', '[1,', '2,', '3]'],
         [['plz', 'test', 'with', '[1, 2, 3]']],
         'test([1, 2, 3]);'
-    ],
-    [
-        'very $doge is "so doge"',
-        ['very', '$doge', 'is', '"so', 'doge"'],
-        [['very', '$doge', 'is', '"so doge"']],
-        '$doge = "so doge";'
-    ],
-    [
-        '$doge is "indie levl 99"',
-        ['$doge', 'is', '"indie', 'levl', '99"'],
-        [['$doge', 'is', '"indie levl 99"']],
-        '$doge = "indie levl 99";'
-    ],
-    [
-        'so Doge\Parser',
-        ['so', 'Doge\Parser'],
-        [['so', 'Doge\Parser']],
-        'use Doge\Parser;'
-    ],
-    [
-        'so Doge\Parser as DogeFriend',
-        ['so', 'Doge\Parser', 'as', 'DogeFriend'],
-        [['so', 'Doge\Parser', 'as', 'DogeFriend']],
-        'use Doge\Parser as DogeFriend;'
     ],
     [
         'shh This is doge script
@@ -369,55 +431,35 @@ $doge = test(10, 20, 30);'
 
 $doge = test(10, strpos("doge", "do"), 30);'
     ],
+    
+    /**
+     * Miscallenious:
+     * 
+     * - variable assignment
+     * - importing class (use statement)
+     */
     [
-        'rly $i totally 1 or $i totally 0 so
-            wow 1',
-        [
-            'rly', '$i', 'totally', '1', 'or', '$i', 'totally', '0', 'so', "\n",
-            'wow', '1'
-        ],
-        [
-            ['rly', '$i', 'totally', '1', 'or', '$i', 'totally', '0', 'so'],
-            ['wow', '1']
-        ],
-        'if ($i === 1 || $i === 0) {
-return 1;
-}'
+        'very $doge is "so doge"',
+        ['very', '$doge', 'is', '"so', 'doge"'],
+        [['very', '$doge', 'is', '"so doge"']],
+        '$doge = "so doge";'
     ],
     [
-        '4lulz $doge with $dogs so
-            plz echo with $doge
-        wow',
-        [
-            '4lulz', '$doge', 'with', '$dogs', 'so', "\n",
-            'plz', 'echo', 'with', '$doge', "\n",
-            'wow'
-        ],
-        [
-            ['4lulz', '$doge', 'with', '$dogs', 'so'],
-            ['plz', 'echo', 'with', '$doge'],
-            ['wow']
-        ],
-        'foreach ($dogs as $doge) {
-echo($doge);
-}'
+        '$doge is "indie levl 99"',
+        ['$doge', 'is', '"indie', 'levl', '99"'],
+        [['$doge', 'is', '"indie levl 99"']],
+        '$doge = "indie levl 99";'
     ],
     [
-        '4lulz $doge $value with $dogs so
-            plz echo with $doge
-        wow',
-        [
-            '4lulz', '$doge', '$value', 'with', '$dogs', 'so', "\n",
-            'plz', 'echo', 'with', '$doge', "\n",
-            'wow'
-        ],
-        [
-            ['4lulz', '$doge', '$value', 'with', '$dogs', 'so'],
-            ['plz', 'echo', 'with', '$doge'],
-            ['wow']
-        ],
-        'foreach ($dogs as $doge => $value) {
-echo($doge);
-}'
-    ]
+        'so Doge\Parser',
+        ['so', 'Doge\Parser'],
+        [['so', 'Doge\Parser']],
+        'use Doge\Parser;'
+    ],
+    [
+        'so Doge\Parser as DogeFriend',
+        ['so', 'Doge\Parser', 'as', 'DogeFriend'],
+        [['so', 'Doge\Parser', 'as', 'DogeFriend']],
+        'use Doge\Parser as DogeFriend;'
+    ],
 ];

@@ -1,11 +1,11 @@
 <?php namespace Doge;
 
 /**
- * Base class for grammar classes
+ * Base trait for grammar classes
  * 
  * @package dogescript-php
  */
-abstract class Base {
+trait Base {
     
     /**
      * @var array

@@ -98,8 +98,10 @@ return [
         'promise', // interface
         'treat',   // trait
         'doge',    // class
-        'bone',    // abstract
+        'bone',    // abstract class
         'nevr',    // private function
+        'shared',  // protected function
+        ''
         */
     ]
 ];

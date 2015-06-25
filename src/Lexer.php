@@ -10,7 +10,8 @@ use Doge\Buffers\ExpressionBuffer;
  * @todo compose into parser
  * @package dogescript-php
  */
-class Lexer extends Base {
+class Lexer {
+    use Base;
     
     /**
      * Process tokens into array statements
