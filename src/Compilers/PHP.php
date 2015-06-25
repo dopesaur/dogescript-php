@@ -183,6 +183,10 @@ class PHP implements Compiler {
             $code .= "}";
         }
         
+        if ($first === 'amaze') {
+            $code .= 'return ' . implode(' ', array_slice($line, 1)) . ';';
+        }
+        
         if ($code) {
             return $code;
         }

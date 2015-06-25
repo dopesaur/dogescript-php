@@ -57,6 +57,7 @@ return [
         /* Functions */
         'such',
         'wow',
+        'amaze',
         'plz',
         'with',
         

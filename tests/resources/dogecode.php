@@ -329,6 +329,24 @@ return $a + $b;
 }'
     ],
     [
+        'such test much $a $b so
+            amaze $a + $b
+        wow',
+        [
+            'such', 'test', 'much', '$a', '$b', 'so', "\n",
+            'amaze', '$a', '+', '$b', "\n",
+            'wow'
+        ],
+        [
+            ['such', 'test', 'much', '$a', '$b', 'so'],
+            ['amaze', '$a', '+', '$b'],
+            ['wow']
+        ],
+        'function test ($a, $b) {
+return $a + $b;
+}'
+    ],
+    [
         'plz test',
         ['plz', 'test'],
         [['plz', 'test']],
@@ -433,7 +451,7 @@ $doge = test(10, strpos("doge", "do"), 30);'
     ],
     
     /**
-     * Miscallenious:
+     * Miscellaneous:
      * 
      * - variable assignment
      * - importing class (use statement)
