@@ -101,7 +101,6 @@ return [
         'bone',    // abstract class
         'nevr',    // private function
         'shared',  // protected function
-        ''
         */
     ]
 ];

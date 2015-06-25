@@ -10,5 +10,5 @@ if (file_exists($file)) {
     file_put_contents("$file.php", $code);
 }
 else {
-    echo "Such file '$file', so not exists";
+    echo "Such file '$file', so not exists, very sad";
 }

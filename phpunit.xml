@@ -7,7 +7,7 @@
          stopOnSkipped="true"
 	     beStrictAboutTestsThatDoNotTestAnything="true">
 	<testsuites>
-		<testsuite name="Trial tests">
+		<testsuite name="dogescript-php tests">
 			<directory>./tests</directory>
 		</testsuite>
 	</testsuites>

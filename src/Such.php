@@ -2,8 +2,19 @@
 
 use Doge\Compilers\PHP;
 
+/**
+ * Entry point of dogescript compiler
+ * 
+ * You give it file path with dogescript code and it's converting it to PHP.
+ * 
+ * @package dogescript-php
+ */
 class Such {
     
+    /**
+     * @param string $file
+     * @return string
+     */
     static function script ($file) {
         if (!file_exists($file)) {
             throw new Exception("File '$file' not exists!");

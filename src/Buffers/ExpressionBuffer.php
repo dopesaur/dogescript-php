@@ -2,34 +2,48 @@
 
 use Doge\Buffer;
 
+/**
+ * Expression buffer
+ * 
+ * Its job is to determine if nested expressions are complete 
+ * (basically dogescript which in paranthesis)
+ * 
+ * @package dogescript-php
+ */
 class ExpressionBuffer extends Buffer {
     
+    /**
+     * @return bool
+     */
     public function isComplete () {
         $count = $this->getCount($this->data);
         
         return $count[0] === $count[1];
     }
     
+    /**
+     * @param array $tokens
+     * @return array
+     */
     private function getCount ($tokens) {
         $count = [0, 0];
         
         foreach ($tokens as $token) {
-            if (is_array($token)) {
-                $tmp = $this->getCount($token);
-            }
-            else {
-                $tmp = $this->countParanthesis($token);
-            }
+            $tmp = is_array($token) 
+                ? $this->getCount($token)
+                : $this->countParanthesis($token);
             
-            list($first, $second) = $tmp;
-            
-            $count[0] += $first;
-            $count[1] += $second;
+            $count[0] += $tmp[0];
+            $count[1] += $tmp[1];
         }
         
         return $count;
     }
     
+    /**
+     * @param string $string
+     * @return array
+     */
     private function countParanthesis ($string) {
         return [
             substr_count($string, '('),
