@@ -4,7 +4,6 @@
  * Dogescript language file
  */
 
-
 return [
     /**
      * List of statements

@@ -13,7 +13,7 @@ use Doge\Compiler;
  */
 class PHP implements Compiler {
     use Base;
-    
+        
     /**
      * {@inheritdoc}
      */
@@ -36,7 +36,7 @@ class PHP implements Compiler {
     private function compileLine ($line) {
         foreach ($line as $i => $token) {
             if (is_array($token)) {
-                $line[$i] = trim($this->compileLine($token), ';');
+                $line[$i] = chop($this->compileLine($token), ';');
             }
         }
         
