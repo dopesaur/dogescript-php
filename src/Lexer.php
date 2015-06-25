@@ -7,6 +7,7 @@ use Doge\Buffers\ExpressionBuffer;
  * 
  * Separates flat list of tokens into statements and sub expressions
  * 
+ * @todo compose into parser
  * @package dogescript-php
  */
 class Lexer extends Base {
@@ -174,11 +175,15 @@ class Lexer extends Base {
             $statements[$i] = $this->processSeparateExpression($line);
         }
         
-        // var_dump($statements);
-        
         return $statements;
     }
     
+    /**
+     * Separate the expression into its own nested list
+     * 
+     * @param array $line
+     * @return array
+     */
     private function processSeparateExpression ($line) {
         $buffer = new ExpressionBuffer;
         $result = [];
@@ -204,6 +209,12 @@ class Lexer extends Base {
         return $result;
     }
     
+    /**
+     * Remove paranthesis from line
+     *
+     * @param array $line
+     * @return array
+     */
     private function removeParanthesisFromLine ($line) {
         $l = count($line);
         
@@ -211,13 +222,11 @@ class Lexer extends Base {
             if (is_array($token)) {
                 $line[$i] = $this->removeParanthesisFromLine($token);
             }
-            else {
-                if ($i === 0) {
-                    $line[$i] = ltrim($token, '(');
-                }
-                else if (strpos($token, '(') === false && $i === $l - 1) {
-                    $line[$i] = rtrim($token, ')');
-                }
+            else if ($i === 0) {
+                $line[$i] = ltrim($token, '(');
+            }
+            else if (strpos($token, '(') === false && $i === $l - 1) {
+                $line[$i] = rtrim($token, ')');
             }
         }
         
